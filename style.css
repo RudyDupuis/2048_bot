@@ -5,7 +5,7 @@ body {
     width: 100vw;
     height: 100vh;
     margin: 0;
-    background-color: #e9ecef;
+    background-color: #dad7cd;
 }
 
 .game-board {
@@ -15,7 +15,7 @@ body {
 }
 
 .tilePlace {
-    background-color: #ced4da;
+    background-color: #a3b18a;
 }
 
 .tileValue{
@@ -29,7 +29,7 @@ body {
 .tileValue p {
     font-size: 2rem;
     margin: 0;
-    color: black;
+    color: #344e41;
     font-family: Arial;
     font-weight: bold;
 }
