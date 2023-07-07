@@ -1,6 +1,7 @@
 import { gameBoardCreation } from "./game/GameBoardCreation.js";
 import { addRandomValue } from "./game/AddRandomValue.js";
 import { tilesCreation } from "./game/TilesCreation.js";
+import { tilesMoving } from "./game/TilesMoving.js";
 
 let gameBoardValues = [
   ["0", "0", "0", "0"],
@@ -20,41 +21,47 @@ document.addEventListener("keydown", (event) => {
 
   if (arrowKeys.includes(keyPressed)) {
     event.preventDefault();
+    let canMove = true;
 
     switch (keyPressed) {
       case "ArrowUp":
-        for (let col = 0; col < gameBoardValues[0].length; col++) {
-          for (let row = 1; row < gameBoardValues.length; row++) {
-            if (gameBoardValues[row][col] !== "0") {
-              let currentRow = row;
-              while (
-                currentRow > 0 &&
-                gameBoardValues[currentRow - 1][col] === "0"
-              ) {
-                gameBoardValues[currentRow - 1][col] =
-                  gameBoardValues[currentRow][col];
-                gameBoardValues[currentRow][col] = "0";
-                currentRow--;
-              }
-              if (
-                currentRow > 0 &&
-                gameBoardValues[currentRow - 1][col] ===
-                  gameBoardValues[currentRow][col]
-              ) {
-                gameBoardValues[currentRow - 1][col] = `${
-                  Number(gameBoardValues[currentRow - 1][col]) * 2
-                }`;
-                gameBoardValues[currentRow][col] = "0";
-              }
-            }
-          }
-        }
+        tilesMoving(gameBoardValues, "up");
+        // for (let col = 0; col < gameBoardValues[0].length; col++) {
+        //   for (let row = 1; row < gameBoardValues.length; row++) {
+        //     if (gameBoardValues[row][col] !== "0") {
+        //       let currentRow = row;
+        //       canMove = false;
+        //       while (
+        //         currentRow > 0 &&
+        //         gameBoardValues[currentRow - 1][col] === "0"
+        //       ) {
+        //         gameBoardValues[currentRow - 1][col] =
+        //           gameBoardValues[currentRow][col];
+        //         gameBoardValues[currentRow][col] = "0";
+        //         currentRow--;
+        //         canMove = true;
+        //       }
+        //       if (
+        //         currentRow > 0 &&
+        //         gameBoardValues[currentRow - 1][col] ===
+        //           gameBoardValues[currentRow][col]
+        //       ) {
+        //         gameBoardValues[currentRow - 1][col] = `${
+        //           Number(gameBoardValues[currentRow - 1][col]) * 2
+        //         }`;
+        //         gameBoardValues[currentRow][col] = "0";
+        //         canMove = true;
+        //       }
+        //     }
+        //   }
+        // }
         break;
       case "ArrowDown":
         for (let col = 0; col < gameBoardValues[0].length; col++) {
           for (let row = gameBoardValues.length - 2; row >= 0; row--) {
             if (gameBoardValues[row][col] !== "0") {
               let currentRow = row;
+              canMove = false;
               while (
                 currentRow < gameBoardValues.length - 1 &&
                 gameBoardValues[currentRow + 1][col] === "0"
@@ -63,6 +70,7 @@ document.addEventListener("keydown", (event) => {
                   gameBoardValues[currentRow][col];
                 gameBoardValues[currentRow][col] = "0";
                 currentRow++;
+                canMove = true;
               }
               if (
                 currentRow < gameBoardValues.length - 1 &&
@@ -73,6 +81,7 @@ document.addEventListener("keydown", (event) => {
                   Number(gameBoardValues[currentRow + 1][col]) * 2
                 }`;
                 gameBoardValues[currentRow][col] = "0";
+                canMove = true;
               }
             }
           }
@@ -83,6 +92,7 @@ document.addEventListener("keydown", (event) => {
           for (let col = gameBoardValues[row].length - 2; col >= 0; col--) {
             if (gameBoardValues[row][col] !== "0") {
               let currentCol = col;
+              canMove = false;
               while (
                 currentCol < gameBoardValues[row].length - 1 &&
                 gameBoardValues[row][currentCol + 1] === "0"
@@ -91,6 +101,7 @@ document.addEventListener("keydown", (event) => {
                   gameBoardValues[row][currentCol];
                 gameBoardValues[row][currentCol] = "0";
                 currentCol++;
+                canMove = true;
               }
               if (
                 currentCol < gameBoardValues[row].length - 1 &&
@@ -101,6 +112,7 @@ document.addEventListener("keydown", (event) => {
                   Number(gameBoardValues[row][currentCol + 1]) * 2
                 }`;
                 gameBoardValues[row][currentCol] = "0";
+                canMove = true;
               }
             }
           }
@@ -111,6 +123,7 @@ document.addEventListener("keydown", (event) => {
           for (let col = 1; col < gameBoardValues[row].length; col++) {
             if (gameBoardValues[row][col] !== "0") {
               let currentCol = col;
+              canMove = false;
               while (
                 currentCol > 0 &&
                 gameBoardValues[row][currentCol - 1] === "0"
@@ -119,6 +132,7 @@ document.addEventListener("keydown", (event) => {
                   gameBoardValues[row][currentCol];
                 gameBoardValues[row][currentCol] = "0";
                 currentCol--;
+                canMove = true;
               }
               if (
                 currentCol > 0 &&
@@ -129,6 +143,7 @@ document.addEventListener("keydown", (event) => {
                   Number(gameBoardValues[row][currentCol - 1]) * 2
                 }`;
                 gameBoardValues[row][currentCol] = "0";
+                canMove = true;
               }
             }
           }
@@ -136,7 +151,9 @@ document.addEventListener("keydown", (event) => {
         break;
     }
 
-    addRandomValue(gameBoardValues);
+    if (canMove) {
+      addRandomValue(gameBoardValues);
+    }
     tilesCreation(gameBoardValues);
   }
 });
