@@ -25,7 +25,7 @@ buttons.forEach((button) => {
       case "up":
         randomValue = tilesMoving(gameBoardValues, 0);
         break;
-      case "down":
+      case "bottom":
         randomValue = tilesMoving(gameBoardValues, 1);
         break;
       case "left":
