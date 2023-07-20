@@ -1,5 +1,5 @@
 export const tilesMoving = (gameBoardValues, direction) => {
-  let randomValue = false;
+  let isMoving = false;
 
   const instructions = (i, y, merge) => {
     let removedLine = [
@@ -16,7 +16,7 @@ export const tilesMoving = (gameBoardValues, direction) => {
         gameBoardValues[col[direction]][row[direction]] = gameBoardValues[i][y];
         gameBoardValues[i][y] = "0";
         moveAndMerge(false);
-        randomValue = true;
+        isMoving = true;
       }
       if (
         gameBoardValues[i][y] ===
@@ -28,7 +28,7 @@ export const tilesMoving = (gameBoardValues, direction) => {
         );
         gameBoardValues[i][y] = "0";
         moveAndMerge(false);
-        randomValue = true;
+        isMoving = true;
       }
     }
   };
@@ -52,5 +52,5 @@ export const tilesMoving = (gameBoardValues, direction) => {
   moveAndMerge(false);
   moveAndMerge(true);
 
-  return randomValue;
+  return isMoving;
 };
