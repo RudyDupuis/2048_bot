@@ -17,50 +17,56 @@ gameBoardValues = addRandomValue(gameBoardValues);
 gameBoardCreation();
 tilesCreation(gameBoardValues);
 
-let round = 0;
-let run = true;
+async function runLoopWithDelay() {
+  let round = 0;
+  let run = true;
 
-do {
-  let isMoving;
+  do {
+    let isMoving;
 
-  if (round % 2 == 0) {
-    isMoving = tilesMoving(gameBoardValues, 0);
-  } else {
-    isMoving = tilesMoving(gameBoardValues, 2);
-  }
-
-  if (isMoving) {
-    addRandomValue(gameBoardValues);
-  } else {
     if (round % 2 == 0) {
-      isMoving = tilesMoving(gameBoardValues, 2);
-    } else {
       isMoving = tilesMoving(gameBoardValues, 0);
+    } else {
+      isMoving = tilesMoving(gameBoardValues, 2);
     }
 
     if (isMoving) {
       addRandomValue(gameBoardValues);
     } else {
-      isMoving = tilesMoving(gameBoardValues, 1);
+      if (round % 2 == 0) {
+        isMoving = tilesMoving(gameBoardValues, 2);
+      } else {
+        isMoving = tilesMoving(gameBoardValues, 0);
+      }
 
       if (isMoving) {
         addRandomValue(gameBoardValues);
       } else {
-        isMoving = tilesMoving(gameBoardValues, 3);
+        isMoving = tilesMoving(gameBoardValues, 1);
 
         if (isMoving) {
           addRandomValue(gameBoardValues);
         } else {
-          run = false;
+          isMoving = tilesMoving(gameBoardValues, 3);
+
+          if (isMoving) {
+            addRandomValue(gameBoardValues);
+          } else {
+            run = false;
+          }
         }
       }
     }
-  }
 
-  tilesCreation(gameBoardValues);
-  round++;
-} while (run);
+    tilesCreation(gameBoardValues);
+    round++;
 
-let score = scoreCalculation(gameBoardValues);
-document.querySelector(".round").textContent = round;
-document.querySelector(".score").textContent = score;
+    let score = scoreCalculation(gameBoardValues);
+    document.querySelector(".round").textContent = round;
+    document.querySelector(".score").textContent = score;
+
+    await new Promise((resolve) => setTimeout(resolve, 50));
+  } while (run);
+}
+
+runLoopWithDelay();

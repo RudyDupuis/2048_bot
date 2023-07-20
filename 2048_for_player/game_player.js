@@ -1,7 +1,7 @@
-import { gameBoardCreation } from "./game/GameBoardCreation.js";
-import { addRandomValue } from "./game/AddRandomValue.js";
-import { tilesCreation } from "./game/TilesCreation.js";
-import { tilesMoving } from "./game/TilesMoving.js";
+import { gameBoardCreation } from "../game/GameBoardCreation.js";
+import { addRandomValue } from "../game/AddRandomValue.js";
+import { tilesCreation } from "../game/TilesCreation.js";
+import { tilesMoving } from "../game/TilesMoving.js";
 
 const buttons = document.querySelectorAll("button");
 

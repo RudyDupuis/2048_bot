@@ -18,6 +18,7 @@ gameBoardValues = addRandomValue(gameBoardValues);
 
 gameBoardCreation();
 tilesCreation(gameBoardValues);
+
 async function runLoopWithDelay() {
   let round = 0;
   let run = true;
@@ -69,7 +70,7 @@ async function runLoopWithDelay() {
     document.querySelector(".round").textContent = round;
     document.querySelector(".score").textContent = score;
 
-    await new Promise((resolve) => setTimeout(resolve, 200));
+    await new Promise((resolve) => setTimeout(resolve, 50));
   } while (run);
 }
 
